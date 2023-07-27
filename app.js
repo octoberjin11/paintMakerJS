@@ -8,6 +8,17 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
-// 사각형 채우는 함수 fillRect
-// ctx.fillRect(x좌표, y좌표, 넓이, 높이)
-ctx.fillRect(50, 50, 100, 200);
+// 사각형 선 그리기
+ctx.rect(50, 50, 100, 100);
+ctx.rect(150, 150, 100, 100);
+ctx.rect(250, 250, 100, 100);
+// 위의 코드까지만 작성하면 선의 색이 적용되지 않아서 보이지 않는다.
+// 다음 줄에 ctx.stroke() / ctx.fill() 해서 테두리만 그리거나 채울 수 있음.
+ctx.fill();
+
+// 끊어가기를 원하는 곳 맨 앞에 ctx.beginPath();추가해 새 경로 만들기.
+ctx.beginPath();
+ctx.rect(350, 350, 100, 100);
+ctx.rect(450, 450, 100, 100);
+ctx.fillStyle = "red";
+ctx.fill();
