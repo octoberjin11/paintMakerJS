@@ -8,18 +8,13 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
-/*
-moveTo(x, y); -> 브러쉬의 좌표를 움직여줌
-lineTo(x, y) -> 라인을 그려줌
-
-- 수평인 직선을 그리려면 두 y값이 같아야 한다
-- 라인이 끝난 점이 다음에 시작하는 브러쉬 좌표이다
-- 정리하자면 fillRect = fill+Rect = fill + (moveTo+lineTo)
-*/
-
-ctx.moveTo(50, 50);
-ctx.lineTo(150, 50);
-ctx.lineTo(150, 150);
-ctx.lineTo(50, 150);
-ctx.lineTo(50, 50);
+ctx.fillRect(200, 200, 50, 200); //왼쪽 벽 만들기
+ctx.fillRect(400, 200, 50, 200); //오른쪽 벽 만들기
+// ctx.lineWidth = 2; //선 굵기 조절
+// ctx.strokeRect(300, 300, 50, 100); //문 만들기. strokeRect()는 선만 그려주고 채워주지 않는.
+ctx.fillRect(300, 300, 50, 100); //문 만들기
+ctx.fillRect(200, 200, 200, 20); //천장 만들기
+ctx.moveTo(200, 200); // 지붕 만들기 위해 연필(좌표) 이동
+ctx.lineTo(325, 100);
+ctx.lineTo(450, 200);
 ctx.fill();
