@@ -1,3 +1,4 @@
+const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector("canvas");
 
@@ -38,9 +39,17 @@ function onLineWidthChange(event) {
   ctx.lineWidth = changeLineWidth;
 }
 
+function onColorChange(event) {
+  const changeColor = event.target.value;
+
+  ctx.strokeStyle = changeColor;
+  ctx.fillStyle = changeColor;
+}
+
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting); //마우스 커서가 영역 밖을 벗어났을 때
 
 lineWidth.addEventListener("change", onLineWidthChange); //선 굵기
+color.addEventListener("change", onColorChange); //색상 변경
