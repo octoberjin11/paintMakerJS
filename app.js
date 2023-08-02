@@ -30,6 +30,9 @@ function onMove(event) {
   if (isPainting) {
     ctx.lineTo(event.offsetX, event.offsetY);
     ctx.stroke();
+    if (isFilling) {
+      ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    }
     return;
   }
   ctx.moveTo(event.offsetX, event.offsetY);
@@ -74,6 +77,7 @@ function onModeClick() {
 
 function onCanvasClick() {
   if (isFilling) {
+    //색 채우기
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   }
 }
@@ -95,9 +99,10 @@ canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting); //마우스 커서가 영역 밖을 벗어났을 때
 
 canvas.addEventListener("click", onCanvasClick);
+
 lineWidth.addEventListener("change", onLineWidthChange); //선 굵기
 color.addEventListener("change", onColorChange); //색상 변경
 colorOptions.forEach((color) => color.addEventListener("click", onColorClick)); //색상표 클릭
 modeBtn.addEventListener("click", onModeClick); //그리기 모드 변경
 destroyBtn.addEventListener("click", onDestroyClick); //초기화
-eraserBtn.addEventListener("click", onEraserClick);
+eraserBtn.addEventListener("click", onEraserClick); //지우기
