@@ -1,3 +1,4 @@
+const modeBtn = document.getElementById("mode-btn");
 const colorOptions = Array.from(
   document.getElementsByClassName("color-option")
 );
@@ -17,6 +18,7 @@ canvas.height = 800;
 ctx.lineWidth = lineWidth.value;
 
 let isPainting = false;
+let isFilling = false;
 
 // 그림판 만들기
 function onMove(event) {
@@ -55,11 +57,29 @@ function onColorClick(event) {
   color.value = colorValue;
 }
 
+function onModeClick() {
+  if (isFilling) {
+    isFilling = false;
+    modeBtn.innerText = "Fill";
+  } else {
+    isFilling = true;
+    modeBtn.innerText = "Draw";
+  }
+}
+
+function onCanvasClick() {
+  if (isFilling) {
+    ctx.fillRect(0, 0, 800, 800);
+  }
+}
+
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting); //마우스 커서가 영역 밖을 벗어났을 때
 
+canvas.addEventListener("click", onCanvasClick);
 lineWidth.addEventListener("change", onLineWidthChange); //선 굵기
 color.addEventListener("change", onColorChange); //색상 변경
 colorOptions.forEach((color) => color.addEventListener("click", onColorClick)); //색상표 클릭
+modeBtn.addEventListener("click", onModeClick); //그리기 모드 변경
