@@ -8,6 +8,7 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
+// 집 만들기
 ctx.fillRect(200, 200, 50, 200); //왼쪽 벽 만들기
 ctx.fillRect(400, 200, 50, 200); //오른쪽 벽 만들기
 // ctx.lineWidth = 2; //선 굵기 조절
