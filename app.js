@@ -11,36 +11,27 @@ canvas.height = 800;
 // 선 굵기
 ctx.lineWidth = 2;
 
-// 시작점
-let x_coord = 0;
-let y_coord = 0;
-
-const colors = [
-  "#ff3838",
-  "#ffb8b8",
-  "#c56cf0",
-  "#ff9f1a",
-  "#fff200",
-  "#32ff7e",
-  "#7efff5",
-  "#18dcff",
-  "#7d5fff",
-];
+let isPainting = false;
 
 // 그림판 만들기
-function cursorMove(event) {
-  ctx.beginPath();
-  ctx.moveTo(x_coord, y_coord);
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  ctx.strokeStyle = color;
-  ctx.lineTo(event.offsetX, event.offsetY);
-  ctx.stroke();
+function onMove(event) {
+  if (isPainting) {
+    ctx.lineTo(event.offsetX, event.offsetY);
+    ctx.stroke();
+    return;
+  }
+  ctx.moveTo(event.offsetX, event.offsetY);
 }
 
-function onClick(event) {
-  x_coord = event.offsetX;
-  y_coord = event.offsetY;
+function startPainting() {
+  isPainting = true;
 }
 
-canvas.addEventListener("mousemove", cursorMove);
-canvas.addEventListener("click", onClick);
+function cancelPainting() {
+  isPainting = false;
+}
+
+canvas.addEventListener("mousemove", onMove);
+canvas.addEventListener("mousedown", startPainting);
+canvas.addEventListener("mouseup", cancelPainting);
+canvas.addEventListener("mouseleave", cancelPainting); //마우스 커서가 영역 밖을 벗어났을 때
