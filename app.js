@@ -8,16 +8,39 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
-// 사람 그리기
-ctx.fillRect(210 - 40, 200 - 30, 15, 100); //왼팔
-ctx.fillRect(350 - 40, 200 - 30, 15, 100); //오른팔
-ctx.fillRect(260 - 40, 200 - 30, 60, 200); //몸통
+// 선 굵기
+ctx.lineWidth = 2;
 
-ctx.arc(250, 100, 50, 0, 2 * Math.PI); //열굴
-ctx.fill();
+// 시작점
+let x_coord = 0;
+let y_coord = 0;
 
-ctx.beginPath(); //색이 다른 path를 만들어주기 위해 새로운 path를 만들어줌.
-ctx.fillStyle = "white";
-ctx.arc(260 + 10, 80, 8, Math.PI, 2 * Math.PI);
-ctx.arc(220 + 10, 80, 8, Math.PI, 2 * Math.PI);
-ctx.fill();
+const colors = [
+  "#ff3838",
+  "#ffb8b8",
+  "#c56cf0",
+  "#ff9f1a",
+  "#fff200",
+  "#32ff7e",
+  "#7efff5",
+  "#18dcff",
+  "#7d5fff",
+];
+
+// 그림판 만들기
+function cursorMove(event) {
+  ctx.beginPath();
+  ctx.moveTo(x_coord, y_coord);
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  ctx.strokeStyle = color;
+  ctx.lineTo(event.offsetX, event.offsetY);
+  ctx.stroke();
+}
+
+function onClick(event) {
+  x_coord = event.offsetX;
+  y_coord = event.offsetY;
+}
+
+canvas.addEventListener("mousemove", cursorMove);
+canvas.addEventListener("click", onClick);
