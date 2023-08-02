@@ -1,4 +1,6 @@
 const modeBtn = document.getElementById("mode-btn");
+const destroyBtn = document.getElementById("destroy-btn");
+const eraserBtn = document.getElementById("eraser-btn");
 const colorOptions = Array.from(
   document.getElementsByClassName("color-option")
 );
@@ -11,8 +13,11 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 // 캔버스 크기 설정
-canvas.width = 800;
-canvas.height = 800;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 800;
+
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
 
 // 선 굵기
 ctx.lineWidth = lineWidth.value;
@@ -69,8 +74,19 @@ function onModeClick() {
 
 function onCanvasClick() {
   if (isFilling) {
-    ctx.fillRect(0, 0, 800, 800);
+    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   }
+}
+
+function onDestroyClick() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+}
+
+function onEraserClick() {
+  ctx.strokeStyle = "white";
+  isFilling = false;
+  modeBtn.innerText = "Fill";
 }
 
 canvas.addEventListener("mousemove", onMove);
@@ -83,3 +99,5 @@ lineWidth.addEventListener("change", onLineWidthChange); //선 굵기
 color.addEventListener("change", onColorChange); //색상 변경
 colorOptions.forEach((color) => color.addEventListener("click", onColorClick)); //색상표 클릭
 modeBtn.addEventListener("click", onModeClick); //그리기 모드 변경
+destroyBtn.addEventListener("click", onDestroyClick); //초기화
+eraserBtn.addEventListener("click", onEraserClick);
