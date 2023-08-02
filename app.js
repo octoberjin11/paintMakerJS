@@ -1,3 +1,4 @@
+const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector("canvas");
 
 // context(ctx)는 캔버스에 그림을 그릴 때 사용하는 붓이다.
@@ -9,7 +10,7 @@ canvas.width = 800;
 canvas.height = 800;
 
 // 선 굵기
-ctx.lineWidth = 2;
+ctx.lineWidth = lineWidth.value;
 
 let isPainting = false;
 
@@ -29,9 +30,17 @@ function startPainting() {
 
 function cancelPainting() {
   isPainting = false;
+  ctx.beginPath();
+}
+
+function onLineWidthChange(event) {
+  const changeLineWidth = event.target.value;
+  ctx.lineWidth = changeLineWidth;
 }
 
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting); //마우스 커서가 영역 밖을 벗어났을 때
+
+lineWidth.addEventListener("change", onLineWidthChange); //선 굵기
