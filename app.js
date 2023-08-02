@@ -1,3 +1,6 @@
+const colorOptions = Array.from(
+  document.getElementsByClassName("color-option")
+);
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector("canvas");
@@ -41,9 +44,15 @@ function onLineWidthChange(event) {
 
 function onColorChange(event) {
   const changeColor = event.target.value;
-
   ctx.strokeStyle = changeColor;
   ctx.fillStyle = changeColor;
+}
+
+function onColorClick(event) {
+  const colorValue = event.target.dataset.color;
+  ctx.strokeStyle = colorValue;
+  ctx.fillStyle = colorValue;
+  color.value = colorValue;
 }
 
 canvas.addEventListener("mousemove", onMove);
@@ -53,3 +62,4 @@ canvas.addEventListener("mouseleave", cancelPainting); //마우스 커서가 영
 
 lineWidth.addEventListener("change", onLineWidthChange); //선 굵기
 color.addEventListener("change", onColorChange); //색상 변경
+colorOptions.forEach((color) => color.addEventListener("click", onColorClick)); //색상표 클릭
