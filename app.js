@@ -1,3 +1,4 @@
+const textInput = document.getElementById("text");
 const fileInput = document.getElementById("file");
 const modeBtn = document.getElementById("mode-btn");
 const destroyBtn = document.getElementById("destroy-btn");
@@ -22,6 +23,9 @@ canvas.height = CANVAS_HEIGHT;
 
 // 선 굵기
 ctx.lineWidth = lineWidth.value;
+
+// 선 스타일
+ctx.lineCap = "round";
 
 let isPainting = false;
 let isFilling = false;
@@ -108,6 +112,18 @@ function onFileChange(event) {
   };
 }
 
+function onDoubleClick(event) {
+  const text = textInput.value;
+  if (text !== "") {
+    ctx.save(); //현재 상태(색상, 스타일 등 모든 것)를 저장한다
+    ctx.lineWidth = 1;
+    ctx.font = "68px 'Press Start 2P'"; //font 지정
+    ctx.fillText(text, event.offsetX, event.offsetY);
+    ctx.restore(); //저장해뒀던 버전으로 되돌림. 기존의 체크포인트로 돌아감
+  }
+}
+
+canvas.addEventListener("dblclick", onDoubleClick);
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
