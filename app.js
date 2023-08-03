@@ -128,7 +128,7 @@ function onSaveClick() {
   const url = canvas.toDataURL(); //캔버스에 그린 그림을 url로 인코딩(변환)
   const a = document.createElement("a"); //a 태그를 생성해 가짜 링크를 생성
   a.href = url; //url 설정
-  a.download = "myDrawing.png"; //파일명 설정
+  a.download = "myDrawing.png"; //다운로드 속성 설정, 파일명 설정
   a.click(); //링크 클릭하여 파일 다운로드
 }
 
