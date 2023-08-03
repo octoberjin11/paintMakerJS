@@ -1,3 +1,4 @@
+const fileInput = document.getElementById("file");
 const modeBtn = document.getElementById("mode-btn");
 const destroyBtn = document.getElementById("destroy-btn");
 const eraserBtn = document.getElementById("eraser-btn");
@@ -93,6 +94,20 @@ function onEraserClick() {
   modeBtn.innerText = "Fill";
 }
 
+function onFileChange(event) {
+  const file = event.target.files[0]; //업로드한 파일을 가져옴
+  const url = URL.createObjectURL(file); //file을 가리키는 URL을 요청
+  const image = new Image(); //<img src="" alt=""/> 생성
+  image.src = url; //image url 설정
+  image.onload = function () {
+    //이미지가 로딩되면 canvas에 해당 이미지를 그림
+    ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+    //file input 비움
+    fileInput.value = null;
+  };
+}
+
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
@@ -106,3 +121,4 @@ colorOptions.forEach((color) => color.addEventListener("click", onColorClick)); 
 modeBtn.addEventListener("click", onModeClick); //그리기 모드 변경
 destroyBtn.addEventListener("click", onDestroyClick); //초기화
 eraserBtn.addEventListener("click", onEraserClick); //지우기
+fileInput.addEventListener("change", onFileChange);
